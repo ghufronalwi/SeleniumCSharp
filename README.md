@@ -26,3 +26,6 @@ This repository contains a simple Selenium Automation Test in C#. I'm using NUni
 
 > **NOTES:**
 > - Some tests are expected to be failed due to not matching expected result (please refer to the test case documentation in google sheet)
+
+### Test Result Screenshot
+![](https://github.com/ghufronalwi/SeleniumCSharp/blob/main/SeleniumCSharp/TestResults.png?raw=true)
