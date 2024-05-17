@@ -1,9 +1,6 @@
-﻿using NUnit.Framework.Constraints;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-using SeleniumCSharp.POM;
-using System.Linq.Expressions;
 
 namespace SeleniumCSharp
 {
@@ -18,30 +15,13 @@ namespace SeleniumCSharp
         public void StartBrowser()
         {
             _driver = new ChromeDriver();
-            //_driver.Navigate().GoToUrl("http://eaapp.somee.com");
             _driver.Navigate().GoToUrl("https://computer-database.gatling.io/computers");
             Thread.Sleep(2000);
         }
 
-        //[Test]
-        //public void TestAccess()
-        //{
-        //    //IWebDriver _driver = new ChromeDriver();
-        //    //driver.Navigate().GoToUrl("http://eaapp.somee.com/");
-
-
-
-        //    //3. POM Initialization
-        //    ComputerDBPage comDBPage = new ComputerDBPage(_driver);
-
-        //    comDBPage.ClickLogin();
-        //    comDBPage.Login("admin", "password");
-        //}
-
         [Test]
         public void TC_COM0001_Access()
         {
-            //_driver.Navigate().GoToUrl("https://computer-database.gatling.io/computers");
             Assert.That(_driver.FindElement(By.CssSelector("#main > h1")).Displayed, Is.True); // Total computer number 
             Assert.That(_driver.FindElement(By.CssSelector("tbody")).Displayed, Is.True); // Table data
             Assert.That(_driver.FindElement(By.Id("searchsubmit")).Displayed, Is.True); // Filter button
@@ -102,8 +82,8 @@ namespace SeleniumCSharp
             List<String> sortedComputerNamesAsc = new List<string>(computerNamesAsc);
             sortedComputerNamesAsc.Sort();
 
-            //Assert.That(computerNamesDesc.SequenceEqual(sortedComputerNamesDesc), Is.True);
-            //Assert.That(computerNamesAsc.SequenceEqual(sortedComputerNamesAsc), Is.True);
+            Assert.That(computerNamesDesc.SequenceEqual(sortedComputerNamesDesc), Is.True);
+            Assert.That(computerNamesAsc.SequenceEqual(sortedComputerNamesAsc), Is.True);
         }
 
         [Test]
@@ -123,10 +103,10 @@ namespace SeleniumCSharp
             Assert.That(notif.Displayed, Is.True);
             Assert.That(notif.Text.Contains(strNotif), Is.True);
 
-            //// Verify if the newly created data exists in the table data
-            //_driver.FindElement(By.Id("searchbox")).SendKeys(comName);
-            //_driver.FindElement(By.Id("searchsubmit")).Click();
-            //Assert.That(_driver.FindElement(By.CssSelector("tbody")).Displayed, Is.True);
+            // Verify if the newly created data exists in the table data
+            _driver.FindElement(By.Id("searchbox")).SendKeys(comName);
+            _driver.FindElement(By.Id("searchsubmit")).Click();
+            Assert.That(_driver.FindElement(By.CssSelector("tbody")).Displayed, Is.True);
         }
 
         [Test]
@@ -147,10 +127,10 @@ namespace SeleniumCSharp
             Assert.That(notif.Displayed, Is.True);
             Assert.That(notif.Text.Contains(strNotif), Is.True);
 
-            //// Verify if the newly edited data is updated in the table
-            //_driver.FindElement(By.Id("searchbox")).SendKeys(comName);
-            //_driver.FindElement(By.Id("searchsubmit")).Click();
-            //Assert.That(_driver.FindElement(By.CssSelector("tbody")).Displayed, Is.True);
+            // Verify if the newly edited data is updated in the table
+            _driver.FindElement(By.Id("searchbox")).SendKeys(comName);
+            _driver.FindElement(By.Id("searchsubmit")).Click();
+            Assert.That(_driver.FindElement(By.CssSelector("tbody")).Displayed, Is.True);
         }
 
         [Test]
@@ -166,16 +146,15 @@ namespace SeleniumCSharp
             Assert.That(notif.Displayed, Is.True);
             Assert.That(notif.Text.Contains(strNotif), Is.True);
 
-            //// Verify if the newly deleted data does not exist anymore
-            //_driver.FindElement(By.Id("searchbox")).SendKeys(strDeletedComName);
-            //_driver.FindElement(By.Id("searchsubmit")).Click();
-            //Assert.That(_driver.FindElement(By.LinkText(strDeletedComName)).Displayed, Is.False);
+            // Verify if the newly deleted data does not exist anymore
+            _driver.FindElement(By.Id("searchbox")).SendKeys(strDeletedComName);
+            _driver.FindElement(By.Id("searchsubmit")).Click();
+            Assert.That(_driver.FindElement(By.LinkText(strDeletedComName)).Displayed, Is.False);
         }
 
         [TearDown]
         public void CloseBrowser()
         {
-            Thread.Sleep(2000);
             _driver.Quit();
         }
     }

@@ -1,10 +1,5 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SeleniumCSharp
 {
@@ -33,7 +28,27 @@ namespace SeleniumCSharp
         {
             _driver.FindElement(By.CssSelector("li:nth-child(1) > button")).Click();
             Assert.That(_driver.SwitchTo().Alert().Text, Is.EqualTo("I am a JS Alert"));
-            Assert.That(_driver.FindElement(By.Id("result")).Text, Is.EqualTo("You succesfully clicked an alert"));
+            _driver.SwitchTo().Alert().Accept();
+            Assert.That(_driver.FindElement(By.Id("result")).Text, Is.EqualTo("You successfully clicked an alert"));
+        }
+
+
+        [Test]
+        public void TC_JS0003_JSConfirmOk()
+        {
+            _driver.FindElement(By.CssSelector("li:nth-child(2) > button")).Click();
+            Assert.That(_driver.SwitchTo().Alert().Text, Is.EqualTo("I am a JS Confirm"));
+            _driver.SwitchTo().Alert().Accept();
+            Assert.That(_driver.FindElement(By.Id("result")).Text, Is.EqualTo("You clicked: Ok"));
+        }
+
+        [Test]
+        public void TC_JS0004_JSConfirmCancel()
+        {
+            _driver.FindElement(By.CssSelector("li:nth-child(2) > button")).Click();
+            Assert.That(_driver.SwitchTo().Alert().Text, Is.EqualTo("I am a JS Confirm"));
+            _driver.SwitchTo().Alert().Dismiss();
+            Assert.That(_driver.FindElement(By.Id("result")).Text, Is.EqualTo("You clicked: Cancel"));
         }
 
         [Test]
@@ -68,7 +83,6 @@ namespace SeleniumCSharp
         [TearDown]
         public void CloseBrowser()
         {
-            Thread.Sleep(2000);
             _driver.Quit();
         }
     }
